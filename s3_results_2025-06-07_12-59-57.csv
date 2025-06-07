@@ -1,0 +1,4 @@
+Bucket Name,Status,Encryption,Versioning
+myawsprojectbucket-2,PUBLIC via ACL,ENCRYPTION ENABLED,Version Enabled
+myawsprojectbucket-3,PUBLIC via Policy,ENCRYPTION ENABLED,Version Not Configured
+myawsprojects3bucket1,PRIVATE,ENCRYPTION ENABLED,Version Not Configured
