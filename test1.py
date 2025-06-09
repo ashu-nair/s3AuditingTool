@@ -1,12 +1,44 @@
 import boto3
+import boto3.session
 from botocore.exceptions import ClientError
 import csv
 from datetime import datetime
+from getpass import getpass
+
+print("WELCOME TO AWS☁️ AUDITING TOOL🛠️")
+def get_s3_client():
+    try:
+        user_input = input("IAM User Selection (\"Manual Entry\" = M) or (\"AWS Profiles\" = P) :")
+        if user_input == "M" :
+            access_key = input("Enter AWS Access Key:").strip()
+            secret_key = getpass("Enter AWS Secret Key:").strip()
+            if not access_key or not secret_key:
+                print("Keys cannot be empitied!!")
+                exit()
+            session = boto3.Session(
+            aws_access_key_id= access_key,
+            aws_secret_access_key = secret_key
+            )
+            return session.client("s3")
+        elif user_input == "P":
+            name = input("Enter the AWS Profile for S3 Auditing:").strip()
+            if not name:
+                print("Profile cannot be empty!!")
+                exit()
+            session = boto3.Session(
+                profile_name = name
+            )
+            return session.client("s3")
+        else :
+            print("❌ Invalid option. Please enter M or P.")
+    except Exception as e:
+        print(f"❌ Could not found the AWS acoount : {e}")
+        exit()
 
 def scan_s3_buckets():
-    s3 = boto3.client('s3')
+    s3 = get_s3_client()
     results = []
-
+    print("Scanning as Started ⏳")
     try:
         response = s3.list_buckets()
     except Exception as e:
