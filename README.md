@@ -64,15 +64,15 @@ Boto3 library
 🗂️ Output
 Each run creates a timestamped CSV report:
 s3_results_YYYY-MM-DD_HH-MM-SS.csv
-
-
+```csv
+---
 🔧 Folder Structure
 📦 s3-audit-cli-tool/
  ┣ 📜 s3_audit.py
  ┣ 📄 README.md
  ┣ 📄 requirements.txt
  ┣ 🗂️ output/ (optional if you want to save reports here)
-
+---
 
 ✅ What's Inside the Code
 -AWS Session handling with boto3
@@ -82,7 +82,7 @@ s3_results_YYYY-MM-DD_HH-MM-SS.csv
 -Error handling for missing policies or access
 
 -Extensible CLI — ready for future GUI, JSON output, or multi-region support
-
+---
 ✨ Future Improvements
 -Export results to JSON
 
@@ -93,3 +93,4 @@ s3_results_YYYY-MM-DD_HH-MM-SS.csv
 -Logging to file
 
 -Email alerts on findings
+---
