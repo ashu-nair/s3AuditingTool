@@ -2,7 +2,6 @@
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
 ![Boto3](https://img.shields.io/badge/Boto3-AWS-yellow?logo=amazon-aws)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 Audit your AWS S3 buckets with a simple CLI tool — check for public access, encryption, versioning, and public access block settings. Export results to CSV for easy review or documentation.
 
