@@ -19,7 +19,7 @@ Audit your AWS S3 buckets with a simple CLI tool — check for public access, en
 - ✅ Lightweight and easy to run (Python only)
 - 🧠 Designed for security analysts, developers, and auditors
 
----
+```markdown
 
 ## 📸 Sample Output
 
