@@ -1,0 +1,5 @@
+Bucket Name,Status,Encryption,Versioning,Public Acess Block
+myawsprojectbucket-2,PRIVATE,ENCRYPTION ENABLED,Version Enabled, Partially Enabled
+myawsprojectbucket-3,PUBLIC via Policy,ENCRYPTION ENABLED,Version Not Configured, Not Enabled
+myawsprojects3bucket1,PRIVATE,ENCRYPTION ENABLED,Version Not Configured, Fully Enabled
+tests3bucket-4,PRIVATE,ENCRYPTION ENABLED,Version Enabled, Not Enabled

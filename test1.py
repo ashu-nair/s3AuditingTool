@@ -50,6 +50,7 @@ def scan_s3_buckets():
         status = "PRIVATE"
         encrypt_status = "NO ENCRYPTION"
         version_status = "UNKNOWN"
+        pab_status = "UNKNOWN"
         # Check ACL
         try:
             acl = s3.get_bucket_acl(Bucket=bucket_name)
@@ -99,8 +100,34 @@ def scan_s3_buckets():
         except Exception as e:
             version_status = f"ERROR (Versioning: {type(e).__name__})"
         
-        results.append([bucket_name, status , encrypt_status,version_status])
 
+        #Checking Public Access Block
+        try:
+            pab = s3.get_public_access_block(Bucket = bucket_name)
+            config = pab["PublicAccessBlockConfiguration"]
+            
+            block_public_acls = config.get('BlockPublicAcls', False)
+            ignore_public_acls = config.get('IgnorePublicAcls', False)
+            block_public_policy = config.get('BlockPublicPolicy', False)
+            restrict_public_buckets = config.get('RestrictPublicBuckets', False)
+
+            if all([block_public_acls, ignore_public_acls, block_public_policy, restrict_public_buckets]):
+                pab_status = " Fully Enabled"
+            elif any([block_public_acls, ignore_public_acls, block_public_policy, restrict_public_buckets]):
+                pab_status = f" Partially Enabled"
+            else:
+                pab_status = " Not Enabled"
+        except s3.exceptions.ClientError as e:
+            if e.response['Error']['Code'] == 'NoSuchPublicAccessBlockConfiguration':
+                pab_status = " Not Configured"
+            elif e.response['Error']['Code'] == 'AccessDenied':
+                pab_status = " Access Denied"
+            else:
+                pab_status = f" Error: {e.response['Error']['Code']}"
+        except Exception as e:
+            pab_status = f" Unknown Error: {str(e)}"
+
+        results.append([bucket_name, status , encrypt_status,version_status, pab_status])
     # For Timing
     timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     filename = f"s3_results_{timestamp}.csv"
@@ -109,7 +136,7 @@ def scan_s3_buckets():
     # Save to CSV
     with open(filename, mode="w", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow(["Bucket Name", "Status", "Encryption" , "Versioning"])
+        writer.writerow(["Bucket Name", "Status", "Encryption" , "Versioning", "Public Acess Block"])
         writer.writerows(results)
 
     print("\n✅ Scan complete. Results saved to 's3_results.csv'.")
