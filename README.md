@@ -19,14 +19,15 @@ Audit your AWS S3 buckets with a simple CLI tool — check for public access, en
 - ✅ Lightweight and easy to run (Python only)
 - 🧠 Designed for security analysts, developers, and auditors
 
-```markdown
+
 
 ## 📸 Sample Output
 
 ```csv
 Bucket Name,Status,Encryption,Versioning,Public Access Block
-my-bucket-1,PRIVATE,ENCRYPTION ENABLED,Version Enabled,All PAB Set to TRUE
-🚀 Getting Started
+my-bucket-1,PRIVATE,ENCRYPTION ENABLED,Version Enabled,Partially Enabled
+```
+##🚀 Getting Started
 1. Clone the repository
 git clone https://github.com/ashu-nair/s3AuditingTool.git
 cd s3-audit-cli-tool
@@ -34,14 +35,14 @@ cd s3-audit-cli-tool
 pip install -r requirements.txt
 3. Run the tool
 python s3_audit.py
-🔐 Authentication Modes
+##🔐 Authentication Modes
 You will be prompted to choose:
 
-M: Manually enter your AWS Access Key & Secret
+M: Manually enter your AWS Access Key & Secret Access Key
 
 P: Use an existing AWS profile from ~/.aws/credentials
 
-📝 Requirements
+## 📝 Requirements
 Python 3.8+
 
 IAM user with permissions to list and access S3 bucket configurations:
@@ -60,20 +61,13 @@ s3:GetBucketPublicAccessBlock
 
 Boto3 library
 
-🗂️ Output
+## 🗂️ Output
 Each run creates a timestamped CSV report:
 s3_results_YYYY-MM-DD_HH-MM-SS.csv
-```csv
----
-🔧 Folder Structure
-📦 s3-audit-cli-tool/
- ┣ 📜 s3_audit.py
- ┣ 📄 README.md
- ┣ 📄 requirements.txt
- ┣ 🗂️ output/ (optional if you want to save reports here)
+
 ---
 
-✅ What's Inside the Code
+## ✅ What's Inside the Code
 -AWS Session handling with boto3
 
 -Secure credential input using getpass
@@ -82,7 +76,7 @@ s3_results_YYYY-MM-DD_HH-MM-SS.csv
 
 -Extensible CLI — ready for future GUI, JSON output, or multi-region support
 ---
-✨ Future Improvements
+## ✨ Future Improvements
 -Export results to JSON
 
 -Add GUI (e.g., Tkinter or CustomTkinter)
@@ -91,5 +85,4 @@ s3_results_YYYY-MM-DD_HH-MM-SS.csv
 
 -Logging to file
 
--Email alerts on findings
 ---
